@@ -48,7 +48,7 @@ static void* hilo_reloj(void *arg) {
 
     if (r->cb) r->cb(h, r->usuario); // avisa la primera hora
 
-    while (!atomic_load(&r->detener) && h < r->hora_fin) { // bucle del reloj
+    while (!atomic_load(&r->detener) && h <= r->hora_fin) { // bucle del reloj (incluye hora_fin)
         sleep(r->seg_por_hora);       // espera el tiempo configurado
         if (atomic_load(&r->detener)) break;  // si debe detenerse sale
         h++;                           // avanza una hora
